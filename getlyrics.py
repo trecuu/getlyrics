@@ -8,6 +8,7 @@ import re
 import json
 from collections import Counter
 
+
 def getsonglist(band):
 	band = band.lower()
 	band = band.replace('\'','')
@@ -25,12 +26,10 @@ def getsonglist(band):
 
 def getlyric(songlist, length):
 	lyrics = []
-	
 	if length == 0:
 		quant = len(songlist)
 	else:
 		quant = length
-
 	for x in range(quant):
 		print(songlist[x])
 		response = urllib2.urlopen('https://www.letras.mus.br'+songlist[x])
@@ -39,11 +38,9 @@ def getlyric(songlist, length):
 			result = re.findall(r'<p>(.*?)<\/p>',result.group(1))
 			result = ' '.join(result).lower()
 			
-
 			filter_space = ['<br/>']
 			for fil in filter_space:
 				result = result.replace(fil,' ')
-
 			
 			filter_null = [',','!','?','(',')','[',']','\'']
 			for fil in filter_null:
@@ -61,12 +58,12 @@ def countwords(lyrics):
 	
 
 
-#print('Band name:')
-#band = input()
-band = 'blink 182'
-#print('Songs quantity (0 for all)')
-#quant = input()
-quant = 10
+print('Band name:')
+band = input()
+
+print('Songs quantity (0 for all)')
+quant = input()
+
 
 words = countwords(getlyric(getsonglist(band),int(quant)))
 
